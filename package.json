@@ -1,0 +1,29 @@
+{
+  "name": "chainctl",
+  "version": "0.1.0",
+  "description": "A command-line toolkit for Stellar developers.",
+  "main": "src/index.js",
+  "bin": {
+    "chainctl": "src/index.js"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "node src/index.js --help"
+  },
+  "keywords": [
+    "stellar",
+    "cli",
+    "horizon",
+    "blockchain"
+  ],
+  "author": "dripslab",
+  "license": "MIT",
+  "dependencies": {
+    "cli-table3": "^0.6.5",
+    "commander": "^12.1.0",
+    "stellar-sdk": "^13.3.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
