@@ -1,5 +1,6 @@
 const { Command } = require("commander");
 const StellarSdk = require("stellar-sdk");
+const { printJson, printSuccess } = require("../output/json");
 
 const HORIZON_URLS = {
   testnet: "https://horizon-testnet.stellar.org",
@@ -105,13 +106,13 @@ function getSendErrorMessage(error, network) {
 
 function printResult(payload, pretty) {
   if (pretty) {
-    console.log("Payment sent.");
-    console.log(`Transaction: ${payload.hash}`);
-    console.log(`Ledger: ${payload.ledger}`);
+    printSuccess("Payment sent.");
+    printSuccess(`Transaction: ${payload.hash}`);
+    printSuccess(`Ledger: ${payload.ledger}`);
     return;
   }
 
-  console.log(JSON.stringify(payload, null, 2));
+  printJson(payload);
 }
 
 function createSendCommand() {

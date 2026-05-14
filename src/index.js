@@ -5,6 +5,7 @@ const { createKeypairCommand } = require("./commands/keypair");
 const { createBalanceCommand } = require("./commands/balance");
 const { createFriendbotCommand } = require("./commands/friendbot");
 const { createSendCommand } = require("./commands/send");
+const { printError } = require("./output/json");
 
 const program = new Command();
 
@@ -21,6 +22,6 @@ program.addCommand(createFriendbotCommand());
 program.addCommand(createSendCommand());
 
 program.parseAsync(process.argv).catch((error) => {
-  console.error(error.message);
+  printError(error.message);
   process.exitCode = 1;
 });
