@@ -1,5 +1,6 @@
 const { Command } = require("commander");
 const StellarSdk = require("stellar-sdk");
+const { printJson, printSuccess } = require("../output/json");
 
 function createKeypairCommand() {
   const keypair = new Command("keypair").description("Manage Stellar keypairs");
@@ -16,12 +17,12 @@ function createKeypairCommand() {
       };
 
       if (options.pretty) {
-        console.log(`Public Key: ${result.publicKey}`);
-        console.log(`Secret Key: ${result.secretKey}`);
+        printSuccess(`Public Key: ${result.publicKey}`);
+        printSuccess(`Secret Key: ${result.secretKey}`);
         return;
       }
 
-      console.log(JSON.stringify(result, null, 2));
+      printJson(result);
     });
 
   return keypair;

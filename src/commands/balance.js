@@ -1,6 +1,7 @@
 const { Command } = require("commander");
-const Table = require("cli-table3");
 const StellarSdk = require("stellar-sdk");
+const { printJson } = require("../output/json");
+const { printTable } = require("../output/table");
 
 const HORIZON_URLS = {
   testnet: "https://horizon-testnet.stellar.org",
@@ -58,24 +59,18 @@ function getBalanceErrorMessage(error, address, network) {
 
 function printBalances(accountId, network, balances, pretty) {
   if (pretty) {
-    const table = new Table({
+    printTable({
       head: ["Asset", "Issuer", "Balance"],
-      wordWrap: true
-    });
-
-    for (const balance of balances) {
-      table.push([
+      rows: balances.map((balance) => [
         balance.asset_type === "native" ? "XLM" : balance.asset_code,
         balance.asset_issuer || "-",
         balance.balance
-      ]);
-    }
-
-    console.log(table.toString());
+      ])
+    });
     return;
   }
 
-  console.log(JSON.stringify({ accountId, network, balances }, null, 2));
+  printJson({ accountId, network, balances });
 }
 
 function createBalanceCommand() {

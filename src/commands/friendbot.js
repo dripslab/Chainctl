@@ -1,5 +1,6 @@
 const { Command } = require("commander");
 const StellarSdk = require("stellar-sdk");
+const { printJson, printSuccess } = require("../output/json");
 
 function validatePublicKey(address) {
   if (!StellarSdk.StrKey.isValidEd25519PublicKey(address)) {
@@ -32,12 +33,12 @@ function createFriendbotCommand() {
       }
 
       if (options.pretty || command.optsWithGlobals().pretty) {
-        console.log(`Funded ${address} on testnet.`);
-        console.log(`Transaction: ${payload.hash}`);
+        printSuccess(`Funded ${address} on testnet.`);
+        printSuccess(`Transaction: ${payload.hash}`);
         return;
       }
 
-      console.log(JSON.stringify(payload, null, 2));
+      printJson(payload);
     });
 }
 
